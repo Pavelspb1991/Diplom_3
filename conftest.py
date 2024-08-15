@@ -25,9 +25,3 @@ def driver(request):
     driver.quit()
 
 
-# Для запусков без ошибок
-@pytest.fixture(autouse=True)
-def slow_down_tests():
-    yield
-    import time
-    time.sleep(1)

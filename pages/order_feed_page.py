@@ -4,6 +4,9 @@ from locators.order_feed_locators import OrderFeedPageLocators
 
 
 class OrderFeedPage(BasePage):
+    def __init__(self, driver):
+        super().__init__(driver)
+
     @allure.title('Проверка отображения  элемента h1 раздела "Лента заказов"')
     def check_text_in_order_feed_page(self):
         self.wait_for_element_visible(OrderFeedPageLocators.order_feed_text_h1)

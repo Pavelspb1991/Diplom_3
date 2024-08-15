@@ -5,6 +5,8 @@ from locators.base_page_locators import BasePageLocators
 
 
 class PersonalAccountPage(BasePage):
+    def __init__(self, driver):
+        super().__init__(driver)
 
     @allure.step('Ввести почту и пароль')
     def login(self, email, password):

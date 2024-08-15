@@ -9,10 +9,10 @@ class BasePage:
         self.driver = driver
 
     @allure.step('Ожидание появления элемента')
-    def wait_for_element_visible(self, locator, timeout=20):
+    def wait_for_element_visible(self, locator, timeout=15):
         return WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
 
-    @allure.step('Ожидание кликабельности элемента')
+    @allure.step('Проверка ожидания элемента, чтобы он стал кликабельным')
     def wait_for_element_clickable(self, locator, timeout=20):
         return WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(locator))
 
@@ -23,7 +23,7 @@ class BasePage:
 
     @allure.step('Кликнуть на элемент')
     def click_on_element(self, locator):
-        element = self.check_element_is_clickable(locator)
+        element = self.wait_for_element_clickable(locator)
         try:
             element.click()
         except:
@@ -32,10 +32,6 @@ class BasePage:
     @allure.step('Кликнуть с помощью JS')
     def click_force(self):
         self.driver.execute_script("arguments[0].click();", self.find_element_with_wait())
-
-    @allure.step('Ожидание кликабельности элемента')
-    def check_element_is_clickable(self, locator):
-        return WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(locator))
 
     @allure.step('Проверка видимости элемента')
     def check_element_is_visible(self, locator):
@@ -64,7 +60,7 @@ class BasePage:
 
     @allure.step('Кликнуть на элемент')
     def click_on_element_force(self, locator):
-        element = self.check_element_is_clickable(locator)
+        element = self.wait_for_element_clickable(locator)
         self.driver.execute_script("arguments[0].click();", element)
 
     @allure.step('Перетащить элемент')
@@ -75,7 +71,4 @@ class BasePage:
     def wait_for_element_correct_value(self, locator, value):
         return WebDriverWait(self.driver, 10).until_not(EC.
                                                         text_to_be_present_in_element(locator, value))
-
-
-
 

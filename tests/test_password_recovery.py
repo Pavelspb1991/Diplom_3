@@ -1,5 +1,3 @@
-import time
-
 from fake_data import *
 from conftest import *
 import allure
@@ -17,7 +15,7 @@ class TestPasswordRecovery:
             recovery_page = RecoveryPage(driver)
         with allure.step('Нажатие кнопки восстановить пароль'):
             recovery_page.click_on_personal_account()
-            recovery_page.wait_for_element_clickable()
+            recovery_page.wait_input_email_is_visible()
         with allure.step('Проверка перехода на страницу восстановления пароля'):
             assert recovery_page.check_input_email_is_visible()
 

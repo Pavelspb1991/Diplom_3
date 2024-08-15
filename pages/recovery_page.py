@@ -4,6 +4,8 @@ from locators.recovery_password_page_locators import RecoveryPasswordPageLocator
 
 
 class RecoveryPage(BasePage):
+    def __init__(self, driver):
+        super().__init__(driver)
 
     @allure.step('Кликнуть по кнопке восстановить пароль')
     def click_on_personal_account(self):
@@ -23,10 +25,6 @@ class RecoveryPage(BasePage):
     @allure.step('Проверка видимости поле ввода восстановления email')
     def check_input_email_is_visible(self):
         return self.check_element_is_visible(RecoveryPasswordPageLocators.input_recovery_email)
-
-    @allure.step('Проверка ожидания поле ввода восстановления email')
-    def wait_for_element_clickable(self):
-        self.wait_for_element_visible(RecoveryPasswordPageLocators.input_recovery_email)
 
     @allure.step('Ввод email в поле восстановления')
     def input_recovery_email(self, email):
@@ -57,8 +55,7 @@ class RecoveryPage(BasePage):
         self.send_keys_input(RecoveryPasswordPageLocators.input_password, password)
 
 
-
-
-
-
+    @allure.step('Проверка видимости поле ввода восстановления email')
+    def wait_input_email_is_visible(self):
+        self.wait_for_element_visible(RecoveryPasswordPageLocators.input_recovery_email)
 

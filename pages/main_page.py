@@ -5,6 +5,9 @@ from locators.base_page_locators import BasePageLocators
 
 
 class MainPage(BasePage):
+    def __init__(self, driver):
+        super().__init__(driver)
+
     @allure.step('Кликнуть по кнопке войти в аккаунт')
     def click_on_personal_account_button(self):
         self.wait_for_element_visible(BasePageLocators.input_button)
@@ -20,9 +23,6 @@ class MainPage(BasePage):
         self.wait_for_element_clickable(BasePageLocators.personal_account_button)
         self.click_on_element(BasePageLocators.personal_account_button)
 
-    def set_get_access_token(self, access_token):
-        self.driver.execute_script(f"localStorage.setItem('accessToken', '{access_token}');")
-        return self.driver.execute_script("return localStorage.getItem('accessToken')")
 
     @allure.step('Кликнуть по кнопке Конструктор')
     def click_on_constructor_button_in_header(self):
@@ -62,7 +62,8 @@ class MainPage(BasePage):
 
     @allure.step('Проверка закрытия  карточки товара')
     def check_ingredient_card_modal_close(self):
-        if not self.check_element_is_clickable(BasePageLocators.modal_close_button):
+        self.wait_for_closing_of_element(BasePageLocators.ingredient_card_modal)
+        if not self.check_element_is_visible(BasePageLocators.ingredient_card_modal):
             return True
 
     @allure.step('Добавить интгридиенты в заказ')
@@ -101,4 +102,3 @@ class MainPage(BasePage):
     def get_number_of_order_in_modal_confirmation(self):
         self.wait_for_element_correct_value(BasePageLocators.order_number_in_modal, '9999')
         return self.get_text(BasePageLocators.order_number_in_modal)
-

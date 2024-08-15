@@ -45,7 +45,7 @@ class TestMainFunctionality:
         with allure.step('Кликнуть по крестику'):
             main_page.click_on_close_ingredient_card()
         with allure.step('Проверка закрытия окна с деталями'):
-            assert main_page.check_ingredient_card_modal_close
+            assert main_page.check_ingredient_card_modal_close()
 
     @allure.title('Проверка увеличения счетчика при добавлении ингредиента в заказ')
     def test_counter_increase_success(self, driver):
